@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MiSegundaAplicacionWeb.Models.Prestamo>
+
+@{
+    ViewData["Title"] = "Listado de Préstamos";
+}
+
+<h1>Listado de Préstamos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Prestar Libro</a>
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Título del Libro</th>
+            <th>Nombre del Usuario</th>
+            <th>Dirección</th>
+            <th>Teléfono</th>
+            <th>Fecha Préstamo</th>
+            <th>Fecha Devolución</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Libro?.Titulo</td>
+                <td>@item.Usuario?.Nombre</td>
+                <td>@item.Usuario?.Direccion</td>
+                <td>@item.Usuario?.Telefono</td>
+                @item.FechaDevolucion?.ToShortDateString()
+                <td>
+                    @if (item.FechaDevolucion.HasValue)
+                    {
+                        @item.FechaDevolucion.Value.ToShortDateString()
+                    }
+                    else
+                    {
+                        <span class="text-danger">No devuelto</span>
+                    }
+                </td>
+                <td>
+                    @if (!item.FechaDevolucion.HasValue)
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Devolver</a>
+                    }
+                    else
+                    {
+                        <span class="text-success">Completado</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

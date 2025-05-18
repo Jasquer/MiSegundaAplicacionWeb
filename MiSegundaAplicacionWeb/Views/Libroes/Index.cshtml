@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Listado de Libros";
+    var disponibles = ViewBag.LibrosDisponibles as List<MiSegundaAplicacionWeb.Models.Libro>;
+    var prestados = ViewBag.LibrosPrestados as List<MiSegundaAplicacionWeb.Models.Libro>;
+}
+
+<h2>Libros Disponibles</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var libro in disponibles)
+        {
+            <tr>
+                <td>@libro.Titulo</td>
+                <td>@libro.Autor</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@libro.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@libro.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Libros Prestados</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var libro in prestados)
+        {
+            <tr>
+                <td>@libro.Titulo</td>
+                <td>@libro.Autor</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@libro.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@libro.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
